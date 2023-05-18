@@ -21,18 +21,17 @@
 
 
 module mux (
-  input clk,
   input [31:0] data0,
   input [31:0] data1,
   input sel,
   output reg [31:0] out
 );
 
-  always @(data0, data1, sel, posedge clk) begin
+  always @* begin
     if (sel == 1'b0) begin
-      out <= data0;
+      out = data0;
     end else begin
-      out <= data1;
+      out = data1;
     end
   end
   
