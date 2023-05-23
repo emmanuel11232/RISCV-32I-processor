@@ -21,33 +21,30 @@
 
 
 module ALU (
-  input clk,
   input [31:0] data_r1,
   input [31:0] data_r2,
   input ALUControl,
-  output reg [31:0] ALUResult = 0,
-  output reg Negative = 0
+  output reg [31:0] ALUResult,
+  output reg Negative
 );
-
-  always @(data_r1 or data_r2 or ALUControl or posedge clk) begin
-    // actualizar los registros en cualquier caso
-    ALUResult <= 0;
-    Negative <= 0;
-    
-    // realizar la operación en el primer flanco
+    //Realizar la operación en cada cambio en las entradas
+  always @* begin 
     case (ALUControl)
-      1'b0: ALUResult <= data_r1 + data_r2; // suma
+      1'b0: begin 
+            ALUResult = data_r1 + data_r2; // suma
+            Negative = 0;
+            end
       1'b1: begin
-                ALUResult <= data_r1 - data_r2; // resta
-                // actualizar el valor de Negative en el primer flanco
-                Negative <= ($signed(ALUResult) < 0);
-               end
-      default: ALUResult <= 0;
+                ALUResult = data_r1 - data_r2; // resta
+                // actualizar el valor de Negative en cada cambio
+                Negative = ($signed(ALUResult) < 0);
+             end
+      default: ALUResult = 0;
     endcase
-    
   end
   
 endmodule
+
 
 
 

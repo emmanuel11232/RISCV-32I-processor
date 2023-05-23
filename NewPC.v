@@ -21,14 +21,13 @@
 
 
 module NewPC (
-  input clk,
   input [31:0] pc,
   input [31:0] immExt,
   output reg [31:0] newpc
 );
-
-  always @(pc or immExt or posedge clk) begin
-    newpc <= pc + immExt;
+//Realizar la operación en cada cambio en las entradas
+  always @* begin
+    newpc = pc + immExt; //Suma el PC más el inmediato
   end
   
 endmodule

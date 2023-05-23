@@ -20,17 +20,14 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ALU_Testbench();
-
-  reg clk;
+module ALU_Testbench;
   reg [31:0] data_r1;
   reg [31:0] data_r2;
   reg ALUControl;
   wire [31:0] ALUResult;
   wire Negative;
 
-  ALU ALU_test (
-    .clk(clk),
+  ALU ALUTest (
     .data_r1(data_r1),
     .data_r2(data_r2),
     .ALUControl(ALUControl),
@@ -39,19 +36,30 @@ module ALU_Testbench();
   );
 
   initial begin
-    clk = 0;
-    data_r1 = 32'b00000000000000000000000000001110;
-    data_r2 = 32'b00000000000000000000000000001111;
-    ALUControl = 1'b1;
-    #50;
-    ALUControl = 1'b0;
-    
-    #100;
-    $finish;
+    data_r1 = 10;
+    data_r2 = 5;
+    ALUControl = 0;
 
+    // Inicialización de valores
+    #5;
+
+    // Prueba de suma
+    ALUControl = 0;
+    data_r1 = 15;
+    data_r2 = 14;
+    #5;
+
+    // Prueba de resta resultado positivo
+    ALUControl = 1;
+    #5;
+    // Prueba de resta resultado negativo
+    data_r1 = 4;
+    data_r2 = 8;
+    #5;
+    
+    $finish;
   end
 
-  always #5 clk = ~clk;
-
 endmodule
+
 

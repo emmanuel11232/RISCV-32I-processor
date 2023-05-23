@@ -21,13 +21,12 @@
 
 
 module mux_Testbench();
-  reg clk;
   reg [31:0] data0, data1;
   reg sel;
   wire [31:0] out;
 
   mux mux_test (
-    .clk(clk),
+
     .data0(data0),
     .data1(data1),
     .sel(sel),
@@ -35,7 +34,6 @@ module mux_Testbench();
   );
 
   initial begin
-    clk = 0;
     data0 = 32'b00000000000000000000000000000001;
     data1 = 32'b11111111111111111111111111111110;
     sel = 1'b0;
@@ -49,8 +47,6 @@ module mux_Testbench();
     #10;
     $finish;
   end
-
-  always #5 clk = ~clk;
 
 endmodule
 

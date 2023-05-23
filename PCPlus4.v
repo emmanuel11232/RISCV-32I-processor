@@ -21,13 +21,12 @@
 
 
 module PCPlus4 (
-  input clk,
   input [31:0] pc,
   output reg [31:0] pcplus4
 );
 
-  always @(pc or posedge clk) begin
-    pcplus4 <= pc + 4;
+  always @* begin
+    pcplus4 = pc + 4;
   end
   
 endmodule

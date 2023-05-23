@@ -21,31 +21,26 @@
 
 
 module PCPlus4_Testbench();
-
-  reg clk;
   reg [31:0] pc;
   wire [31:0] pcplus4;
 
   PCPlus4 pcplus4_test (
-    .clk(clk),
     .pc(pc),
     .pcplus4(pcplus4)
   );
 
   initial begin
-    clk = 0;
     pc = 32'b00000000000000000000000000000000;
-    #20;
+    #5
     pc = 32'b00000000000000000000000000000001;
-    #20
+    #5
     pc = 32'b00000000000000000000000011111111;
-    #20
+    #5
     pc = 32'b11111111111111111111111111111111;
-    #20
+    #5
     $finish;
   end
 
-  always #5 clk = ~clk;
 
 endmodule
 
