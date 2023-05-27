@@ -29,14 +29,20 @@ module Data_Memory(
    integer i;
    localparam Espacio=256;
    reg        [31:0]ram[Espacio:0];
-   always @ (posedge clk or negedge rst) begin
-        if (!rst) begin
-            for (i = 0; i < Espacio; i = i + 1) begin
-                ram[i] <= 0;
-                end
-          end
+   always @ (posedge clk or negedge rst) 
+   begin
         if (we)
            ram[addr] <= data;
+   end
+   always @ (negedge rst) 
+   begin
+        if (!rst) 
+        begin
+            for (i = 0; i < Espacio; i = i + 1) 
+            begin
+                ram[i] <= 0;
+            end
         end
+   end
    assign q = ram[addr]; // read with input address directly    
 endmodule

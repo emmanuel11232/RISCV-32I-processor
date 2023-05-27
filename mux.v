@@ -30,7 +30,8 @@ module mux (
   always @* begin
     if (sel == 1'b0) begin
       out = data0;
-    end else begin
+    end 
+    else  begin
       out = data1;
     end
   end

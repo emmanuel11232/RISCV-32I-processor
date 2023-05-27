@@ -68,7 +68,7 @@ reg [31:0]x28;
 reg [31:0]x29;
 reg [31:0]x30;
 reg [31:0]x31;
-reg [31:0]x32;
+
 wire [31:0] x0_w = 32'b0;
 wire [31:0] x1_w   = x1;
 wire [31:0] x2_w   = x2;
@@ -102,10 +102,11 @@ wire [31:0] x29_w  = x29;
 wire [31:0] x30_w  = x30;
 wire [31:0] x31_w  = x31;
 
-always @(posedge clk)
+always @(posedge clk, posedge rst)
     if (rst) begin
+        x0  <=32'd0;
         x1  <=32'd0;
-        x2  <=32'd0;
+        x2  <=32'd100;
         x3  <=32'd0;
         x4  <=32'd0;
         x5  <=32'd0;

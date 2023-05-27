@@ -24,7 +24,7 @@
 module UC(
   //Se definen las entradas y salidas del módulo
   input [4:0] selector,
-  input Zero,
+  input Negative,
 
   output reg Branch,
   output reg Jump,
@@ -53,6 +53,7 @@ always @(*)
         Mem2Reg = 0;
         MemWrite = 0;
         RegWriteEn = 1;
+        PCSrc = (Branch & Negative) || Jump;
         end
       5'b00100: begin
         Branch = 0;
@@ -65,6 +66,7 @@ always @(*)
         Mem2Reg = 1;
         MemWrite = 0;
         RegWriteEn = 1;
+        PCSrc = (Branch & Negative) || Jump;
         end
       5'b01000: begin
         Branch = 0;
@@ -75,6 +77,7 @@ always @(*)
         ALUOP = 0;
         MemWrite = 1;
         RegWriteEn = 0;
+        PCSrc = (Branch & Negative) || Jump;
         end
       5'b11000: begin
         Branch = 1;
@@ -85,6 +88,7 @@ always @(*)
         ALUOP = 1;
         MemWrite = 0;
         RegWriteEn = 0;
+        PCSrc = (Branch & Negative) || Jump;
         end
       5'b01101: begin
         Branch = 0;
@@ -93,6 +97,7 @@ always @(*)
         WDSrc = 1;
         MemWrite = 0;
         RegWriteEn = 1;
+        PCSrc = (Branch & Negative) || Jump;
         end
       5'b11011: begin
         Branch = 0;
@@ -103,6 +108,7 @@ always @(*)
         ALUOP = 0;
         MemWrite = 0;
         RegWriteEn = 1;
+        PCSrc = (Branch & Negative) || Jump;
         end
       default:  begin
         Branch = 0;
@@ -115,12 +121,13 @@ always @(*)
         Mem2Reg = 0;
         MemWrite = 0;
         RegWriteEn = 0;
+        PCSrc = 0;
         end
     endcase
   end
   //Lógica combinacional para el control de PCSource
-  always @(*)
+  /*always @(*)
   begin
-    PCSrc = (Branch & Zero) || Jump;
-  end
+    PCSrc = (Branch & Negative) || Jump;
+  end*/
 endmodule

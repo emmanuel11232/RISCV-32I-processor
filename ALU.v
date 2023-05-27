@@ -23,13 +23,13 @@
 module ALU (
   input [31:0] data_r1,
   input [31:0] data_r2,
-  input ALUControl,
+  input ALUOP,
   output reg [31:0] ALUResult,
   output reg Negative
 );
     //Realizar la operación en cada cambio en las entradas
-  always @* begin 
-    case (ALUControl)
+  always @(*) begin 
+    case (ALUOP)
       1'b0: begin 
             ALUResult = data_r1 + data_r2; // suma
             Negative = 0;
@@ -39,7 +39,11 @@ module ALU (
                 // actualizar el valor de Negative en cada cambio
                 Negative = ($signed(ALUResult) < 0);
              end
-      default: ALUResult = 0;
+      default: 
+        begin
+            ALUResult = 0;
+            Negative = 0;
+        end
     endcase
   end
   
