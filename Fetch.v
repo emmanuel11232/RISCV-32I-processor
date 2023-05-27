@@ -29,16 +29,16 @@ module Fetch(
     integer j;
     localparam Espacio=256;
     reg [31:0] memory[Espacio:0];
-    always @(posedge clk or negedge rst) begin
-         if (!rst) begin
+    always @(*) begin
+        /*if (!rst) 
+        begin
             for (i = 0; i < Espacio; i = i + 1) begin
-                memory[i] <= 0;
-            end
-         end
-         for (j=0; j<Espacio; j=j+1)begin
-            memory[i]<=0;
-         end
-         $readmemh("C:/Users/User/Desktop/archivo.txt", memory, 0);
+                memory[i] <= 0;    
+         end*/
+         //for (j=0; j<Espacio; j=j+1)begin
+         //   memory[i]<=0;
+         //end
+         $readmemh("C:/Users/Usuario MSI/Desktop/archivo.txt", memory, 0);
          data_out = memory[pc];
     end
 endmodule

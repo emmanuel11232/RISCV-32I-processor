@@ -28,7 +28,7 @@ module Extend(
  
 always @(*) begin
     if (LuiOP) begin
-       immext[31:0]=instr<<12;
+       immext[31:0]={instr[31:12],12'b0};
     end else begin
         case(immsrc)
             //Tipo I

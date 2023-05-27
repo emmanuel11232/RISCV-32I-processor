@@ -22,7 +22,7 @@
 module UC_Testbench;
 // Declaración de señales para el testbench
   reg [4:0] selector;
-  reg Zero;
+  reg Negative;
   wire Branch, Jump, PCSrc;
   wire [1:0] ImmSel;
   wire LUIOP, WDSrc, ALUSrc;
@@ -31,7 +31,7 @@ module UC_Testbench;
   // Instancia del módulo que se va a probar (ejemplo_case)
   UC dut(
     .selector(selector),
-    .Zero(Zero),
+    .Negative(Negative),
     .Branch(Branch),
     .Jump(Jump),
     .PCSrc(PCSrc),
@@ -48,39 +48,39 @@ module UC_Testbench;
   initial begin
     // Asignar valores a las señales de entrada
     selector = 5'b00000;
-    Zero = 0;
+    Negative = 0;
 
     // Esperar un tiempo para estabilizar las señales
     #10;
 
     // Cambiar los valores de las señales de entrada
     selector = 5'b00100;
-    Zero = 0;
+    Negative = 0;
 
     // Esperar un tiempo
     #10;
 
     // Otro cambio en las señales de entrada
     selector = 5'b01000;
-    Zero = 0;
+    Negative = 0;
     // Esperar un tiempo
     #10;
     
     // Otro cambio en las señales de entrada
     selector = 5'b11000;
-    Zero = 1;
+    Negative = 1;
     // Esperar un tiempo
     #10;
     
     // Otro cambio en las señales de entrada
     selector = 5'b01101;
-    Zero = 0;
+    Negative = 0;
     // Esperar un tiempo
     #10;
     
     // Otro cambio en las señales de entrada
     selector = 5'b11011;
-    Zero = 0;
+    Negative = 0;
 
     // Esperar un tiempo
     #10;
@@ -92,6 +92,6 @@ module UC_Testbench;
   // Impresión de resultados
   always @*
   begin
-    $display("selector: %b, Zero: %b, Branch: %b, Jump: %b, PCSrc: %b, ImmSel: %b, LUIOP: %b, WDSrc: %b, ALUSrc: %b, ALUOP: %b, Mem2Reg: %b, MemWrite: %b, RegWriteEn: %b", selector, Zero, Branch, Jump, PCSrc, ImmSel, LUIOP, WDSrc, ALUSrc, ALUOP, Mem2Reg, MemWrite, RegWriteEn);
+    $display("selector: %b, Negative: %b, Branch: %b, Jump: %b, PCSrc: %b, ImmSel: %b, LUIOP: %b, WDSrc: %b, ALUSrc: %b, ALUOP: %b, Mem2Reg: %b, MemWrite: %b, RegWriteEn: %b", selector, Negative, Branch, Jump, PCSrc, ImmSel, LUIOP, WDSrc, ALUSrc, ALUOP, Mem2Reg, MemWrite, RegWriteEn);
   end
 endmodule

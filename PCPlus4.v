@@ -26,7 +26,7 @@ module PCPlus4 (
 );
 
   always @* begin
-    pcplus4 = pc + 4;
+    pcplus4 = pc + 32'd4;
   end
   
 endmodule
