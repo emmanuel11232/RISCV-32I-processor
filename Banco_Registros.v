@@ -1,39 +1,28 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 04/23/2023 06:37:39 PM
-// Design Name: 
-// Module Name: Banco_Registros
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
+// Se define un conjunto de 32 registros de propósito general, numerados del 
+// x0 al x31. Estos registros son de 32 bits de ancho y se utilizan para almacenar datos
+// temporales, direcciones de memoria y resultados intermedios durante la ejecución de
+// instrucciones.
+//
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
 
 module Banco_Registros(
-input clk,
-input RegWriteEn,
-input [4:0]read_r1,
-input [4:0]read_r2,
-input [4:0]rd,
-input [31:0]data,
-input rst,
-output [31:0]data_r1,
-output [31:0]data_r2
+input clk, //Relog del sistema
+input RegWriteEn, //Señal para permitir escritura en registros
+input [4:0]read_r1,//Registro a leer 1
+input [4:0]read_r2,//Registro a leer 2
+input [4:0]rd,     //Registro a escribir
+input [31:0]data,  //Datos a escribir en registro
+input rst,         //Reset
+output [31:0]data_r1,//Registro leído
+output [31:0]data_r2 //Registro leído
 );
 
 
-//Todos los regs
+//Instanciación de todos los registros a usar
 reg [31:0]out_r1;
 reg [31:0]out_r2;
 reg [31:0]x0;
@@ -69,7 +58,8 @@ reg [31:0]x29;
 reg [31:0]x30;
 reg [31:0]x31;
 
-wire [31:0] x0_w = 32'b0;
+//Se asignan todos los wires necesarios para cada registro
+wire [31:0] x0_w = 32'b0; //Se asigna al registro 0 el valor de 0 
 wire [31:0] x1_w   = x1;
 wire [31:0] x2_w   = x2;
 wire [31:0] x3_w   = x3;
@@ -102,11 +92,12 @@ wire [31:0] x29_w  = x29;
 wire [31:0] x30_w  = x30;
 wire [31:0] x31_w  = x31;
 
-always @(posedge clk, posedge rst)
+always @(posedge clk, posedge rst) //Siempre que haya un reset o una señal positiva del reloj
     if (rst) begin
+    //Si se da un reset se reinician todos los registros
         x0  <=32'd0;
         x1  <=32'd0;
-        x2  <=32'd100;
+        x2  <=32'd100; //Esto se realiza para poder acceder a lugares de memoria correctos
         x3  <=32'd0;
         x4  <=32'd0;
         x5  <=32'd0;
@@ -139,7 +130,8 @@ always @(posedge clk, posedge rst)
     end
     else
     begin
-    if (RegWriteEn) begin
+    if (RegWriteEn) begin 
+    //Si se activa la señal para escritura, se asignan los datos leídos al registro seleccionado por rd
         if (rd==5'd1)  x1<=data;
         if (rd==5'd2)  x2<=data;
         if (rd==5'd3)  x3<=data;
@@ -176,6 +168,7 @@ always @(posedge clk, posedge rst)
 
 always @(read_r1,read_r2) begin
     case(read_r1)
+    //Se guarda el registro indicado por read_r1 en el registro out_r1
     5'd0 : assign out_r1=x0_w;
     5'd1 : assign out_r1=x1;
     5'd2 : assign out_r1=x2;
@@ -211,6 +204,7 @@ always @(read_r1,read_r2) begin
     default: out_r1=32'd0;
     endcase
     case(read_r2)
+    //Se guarda el registro indicado por read_r2 en el registro out_r2
     5'd0 : assign out_r2=x0_w;
     5'd1 : assign out_r2=x1;
     5'd2 : assign out_r2=x2;
@@ -246,6 +240,7 @@ always @(read_r1,read_r2) begin
     default: out_r2=32'd0;
     endcase
 end
+//A la salida se le asigna el valor del registro out_r1 y out_r2 respectivamente
 assign data_r1=out_r1;
 assign data_r2=out_r2;
 endmodule
