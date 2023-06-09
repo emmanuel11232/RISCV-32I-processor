@@ -3,13 +3,14 @@ module Fetch_tb;
 //En este testbench revisa la memoria de instrucciones encargada del Fetch, 
 //Esta carga los datos de un archivo en las diferentes direcciones de memoria
 //Se revisan varias direcciones para comprobar su correcta carga y lectura
-//No se revisan todas ya que todas tienen la misma l骻ica
+//No se revisan todas ya que todas tienen la misma l贸gica
 ///////////////////////////////////////////////////////////////////////////////
-reg clk = 0;
-reg rst = 0;
-reg [31:0] pc;
-
-wire [31:0]data_out;
+ //Inputs
+reg clk = 0; //Reloj
+reg rst = 0; //Reset
+  reg [31:0] pc; //Direcci贸n de memoria para intrucci贸n
+//Outputs
+  wire [31:0]data_out; //Datos en direcci贸n indicada
 
 Fetch uut(
 .pc(pc),
