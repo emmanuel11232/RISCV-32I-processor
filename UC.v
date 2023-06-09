@@ -23,18 +23,18 @@
 
 module UC(
   //Se definen las entradas y salidas del módulo
-  input [4:0] selector, //selecciona la entrada según la operación
-  input Negative,
+  input [4:0] selector, //selecctor de la entrada según la instrucción
+  input Negative, //bandera de la ALU
 
-  output reg Branch, //salida branch del main decoder
-  output reg Jump, //salida jump del main decoder
+  output reg Branch, //indica que la instrucción es un branch
+  output reg Jump, //indica que la instrucción es un jump
   output reg PCSrc, //selecciona entre PC+4 o NewPC
   output reg [1:0] ImmSel, //selecciona los la estensión de signo según la intrucción
-  output reg LUIOP,
-  output reg WDSrc,
-  output reg ALUSrc,
-  output reg ALUOP, //habil
-  output reg Mem2Reg, //habilita escribir datos de memoria a registros
+  output reg LUIOP, //señal de control de la unidad de extensión de signo
+  output reg WDSrc, //selecciona el dato que se va a escribir
+  output reg ALUSrc, //selecciona entre el registro 2 o el inmediato para la ALU
+  output reg ALUOP, //selecciona la operación que va a hacer la ALU
+  output reg Mem2Reg, //selector entre el dato de la ALU o el de memoria
   output reg MemWrite, //habilita escribir en memoria
   output reg RegWriteEn //habilita escribir en registros
 );
