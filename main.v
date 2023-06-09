@@ -39,7 +39,6 @@ wire Mem2Reg;
 wire MemWrite;
 wire RegWriteEn;
 wire Negative;
-wire [31:0] temp;
 wire [31:0]data_r1;
 wire [31:0]data_r2;
 wire [31:0]immext;
@@ -50,9 +49,10 @@ wire [31:0] MemoryOut;
 wire [31:0] Result;
 wire [31:0] WD;
 
+
 //assign Negative = 1'b0;
 FF_D FF1(clk, rst, mux_pc, pc);
-Fetch Fetch1 (pc,clk, rst ,data_out);
+Fetch Fetch1 (pc,clk,data_out);
 PCPlus4 sumador1(pc, data0);
 mux mux1(data0, NewPc, PCSrc, mux_pc);
 UC UC1(data_out[6:2], Negative, Branch, Jump, PCSrc, ImmSel, LUIOP, WDSrc, ALUSrc, ALUOP, Mem2Reg, MemWrite, RegWriteEn);

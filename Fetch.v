@@ -1,44 +1,24 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 04/29/2023 11:31:33 PM
-// Design Name: 
-// Module Name: Fetch
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
+// El modulo Fetch consiste en la memoria de instrucciones a la cual le va a entrar
+// el address de pc el cual va a indicar la instruccion a ejecutar. Las memoria se 
+// llena mediante un archivo.txt que contiene las instrucciones necesarias para la 
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
 
 module Fetch(
-    input [31:0]pc,
-    input clk,rst,
-    output reg [31:0]data_out
+    input [31:0]pc, //Entrada pc es la dirección de memoria a revisar para obtener la instrucción deseada
+    input clk, //Reloj y señal de reset
+    output reg [31:0]data_out //Instrucción leída
     );
-    integer i;
-    integer j;
+    //Se declara el tamaño de la memoria como la variable Espacio
     localparam Espacio=256;
+    //Se declara la memoria
     reg [31:0] memory[Espacio:0];
     always @(*) begin
-        /*if (!rst) 
-        begin
-            for (i = 0; i < Espacio; i = i + 1) begin
-                memory[i] <= 0;    
-         end*/
-         //for (j=0; j<Espacio; j=j+1)begin
-         //   memory[i]<=0;
-         //end
-         $readmemh("C:/Users/Usuario MSI/Desktop/archivo.txt", memory, 0);
+        //Se lee el archivo.txt con las instrucciones y se asigna a la salida la instrucción indicada por pc
+         $readmemh("archivo.txt", memory, 0);
          data_out = memory[pc];
     end
 endmodule
