@@ -1,31 +1,18 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 05.05.2023 23:18:12
-// Design Name: 
-// Module Name: NewPC_Testbench
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
+//Este testbench tiene como objetivo, probar los diferentes saltos 
+//a los que puede verse sometido el PC a la hora de 
+//realizar un salto.
 //////////////////////////////////////////////////////////////////////////////////
 
 
 module NewPC_Testbench();
 
-  reg [31:0] pc;
-  reg [31:0] immExt;
-  wire [31:0] newpc;
+  reg [31:0] pc; //Entrada de valor atual de PC
+  reg [31:0] immExt; //Entrada del inmediato extendido para realizar el salto
+  wire [31:0] newpc; //Salida de la nueva dirección de PC
 
+//Unidad de testeo
   NewPC NewPC_test (
     .pc(pc),
     .immExt(immExt),
@@ -33,20 +20,17 @@ module NewPC_Testbench();
   );
 
   initial begin
-    pc = 32'b00000000000000000000000000000000;
-    immExt = 32'b00000000000000000000000000000100;
+  //Se inicializa el valor de PC en cero y el inmediato es 28, newpc = 28
+    pc = 32'h0;
+    immExt = 32'h28;
     
     #5;
-    pc = 32'b00000000000000000000000000000100;
+    //Cambio en pc, newpc = 34 hexadecimal
+    pc = 32'hc;
     
     #5;
-    immExt = 32'b11111111111111111111111111111111;
-    
-    #5;
-    pc = 32'b00000000000000000000000000000000;
-    
-    #5;
-    immExt = 32'b00000000000000000000000000000001;
+    //Cambio en el inmediato, newpc=18 hexadecimal
+    immExt = 32'hc;
     
     #5;
     $finish;

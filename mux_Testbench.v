@@ -1,30 +1,18 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 06.05.2023 19:10:15
-// Design Name: 
-// Module Name: mux_Testbench
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
+// Este testbench tiene como objetivo probar los diferentes
+// cambios a los que se puede ver sometido el mux, cambiando
+// los valores de sus entradas o el valor
+// lógico del selector
 //////////////////////////////////////////////////////////////////////////////////
 
-
+//Unidad de testeo
 module mux_Testbench();
-  reg [31:0] data0, data1;
-  reg sel;
-  wire [31:0] out;
+  reg [31:0] data0, data1; //Datos conectados a la entrada 0 y a la entrada 1
+  reg sel;  //Selector lógico, es 0 o 1
+  wire [31:0] out; //Salida de datos seleccionados
 
+//Unidad de testeo
   mux mux_test (
 
     .data0(data0),
@@ -34,15 +22,16 @@ module mux_Testbench();
   );
 
   initial begin
+  //Se inicializan los valores conectados a las entradas 1 y 0.
     data0 = 32'b00000000000000000000000000000001;
     data1 = 32'b11111111111111111111111111111110;
-    sel = 1'b0;
+    sel = 1'b0; //Se selecciona la entrada 0, salida es 1
     
     #10;
-    sel = 1'b1;
+    sel = 1'b1; //Cambio en el selector, la salida es -2 decimal con signo
     
     #10;
-    data1 = 32'b00000000000000000000000000000010;
+    data1 = 32'b00000000000000000000000000000010;  //Cambio en el dato 1, la salida es 2 decimal
     
     #10;
     $finish;
