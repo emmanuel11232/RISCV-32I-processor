@@ -9,8 +9,8 @@
 // Project Name: Proyecto RISC-V
 // Target Devices: 
 // Tool Versions: 
-// Description: Este m骴ulo toma los bits del [6:2] de la instrucci髇 (esto porque los bits del [0:1] siempre son 11 para todas las instrucciones)
-//              y genera las se馻les de control apropiadas para cada caso.
+// Description: Este m贸dulo toma los bits del [6:2] de la instrucci贸n (esto porque los bits del [0:1] siempre son 11 para todas las instrucciones)
+//              y genera las se帽ales de control apropiadas para cada caso.
 // 
 // Dependencies: 
 // 
@@ -22,23 +22,23 @@
 
 
 module UC(
-  //Se definen las entradas y salidas del m骴ulo
-  input [4:0] selector,
+  //Se definen las entradas y salidas del m贸dulo
+  input [4:0] selector, //selecciona la entrada seg煤n la operaci贸n
   input Negative,
 
-  output reg Branch,
-  output reg Jump,
-  output reg PCSrc,
-  output reg [1:0] ImmSel,
+  output reg Branch, //salida branch del main decoder
+  output reg Jump, //salida jump del main decoder
+  output reg PCSrc, //selecciona entre PC+4 o NewPC
+  output reg [1:0] ImmSel, //selecciona los la estensi贸n de signo seg煤n la intrucci贸n
   output reg LUIOP,
   output reg WDSrc,
   output reg ALUSrc,
-  output reg ALUOP,
-  output reg Mem2Reg,
-  output reg MemWrite,
-  output reg RegWriteEn
+  output reg ALUOP, //habil
+  output reg Mem2Reg, //habilita escribir datos de memoria a registros
+  output reg MemWrite, //habilita escribir en memoria
+  output reg RegWriteEn //habilita escribir en registros
 );
-//Se colocan las salidas seg鷑 la tabla de verdad dise馻da para cada caso
+//Se colocan las salidas seg煤n la tabla de verdad dise帽ada para cada caso
 always @(*)
   begin
     case (selector)
@@ -125,7 +125,7 @@ always @(*)
         end
     endcase
   end
-  //L骻ica combinacional para el control de PCSource
+  //L贸gica combinacional para el control de PCSource
   /*always @(*)
   begin
     PCSrc = (Branch & Negative) || Jump;
